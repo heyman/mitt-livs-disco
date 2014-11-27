@@ -1,0 +1,74 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+//@import "compass/reset";
+
+@import "compass"
++global-reset
+
+//@import "breakpoint/breakpoint"
+//@import "susy"
+
+html
+    background: #000
+
+body
+    background: #000
+    color: #fff
+    height: 100%
+    width: 100%
+    padding-top: 5%
+
+h1
+    font-family: "HeadLineA"
+    font-size: 140px
+    text-align: center
+h2
+    font-size: 66px
+    font-weight: bold
+h3
+    font-size: 50px
+
+.screen
+    display: none
+    padding-top: 40px
+    
+    &.songs
+        h1
+            margin-bottom: 10%
+            i
+                font-size: 100px
+        ol
+            li
+                text-align: center
+                width: 49%
+                height: 100%
+                float: left
+                &:first-child
+                    margin-right: 2%
+                h2
+                    margin-bottom: 20px
+    &.photos
+        .photo
+            position: absolute
+            top: 0
+            left: 0
+            bottom: 0
+            right: 0
+            background-position: center center
+            background-size: contain
+
+.dolphin
+    display: block
+    width: 368px
+    height: 350px
+    background: url(../img/dolphin.png)
+    position: absolute
+    right: 20px
+    top: 100%
+    
+    &.left
+        background: url(../img/dolphin-left.png)
+        left: 0
