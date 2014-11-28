@@ -5,6 +5,6 @@ MLD.songs = [
 ];
 
 MLD.photos = [
-    "img/jm1.jpg",
-    "img/jm2.jpg",
+    "img/jm1.png",
+    "img/jm2.png",
 ];
