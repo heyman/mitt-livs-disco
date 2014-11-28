@@ -79,55 +79,72 @@ body {
   height: 100%;
   width: 100%;
   padding-top: 5%;
+  font-family: "Arial";
 }
 
-/* line 24, ../sass/screen.sass */
+/* line 25, ../sass/screen.sass */
 h1 {
-  font-family: "HeadLineA";
-  font-size: 140px;
+  font-family: "Arial";
+  font-size: 90px;
   text-align: center;
 }
 
-/* line 28, ../sass/screen.sass */
+/* line 29, ../sass/screen.sass */
 h2 {
-  font-size: 66px;
+  font-size: 50px;
   font-weight: bold;
 }
 
-/* line 31, ../sass/screen.sass */
+/* line 32, ../sass/screen.sass */
 h3 {
-  font-size: 50px;
+  font-size: 40px;
 }
 
-/* line 34, ../sass/screen.sass */
+/* line 35, ../sass/screen.sass */
 .screen {
   display: none;
-  padding-top: 40px;
 }
-/* line 39, ../sass/screen.sass */
-.screen.songs h1 {
-  margin-bottom: 10%;
+/* line 40, ../sass/screen.sass */
+.screen.title h1 {
+  font-size: 140px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
-/* line 41, ../sass/screen.sass */
+/* line 48, ../sass/screen.sass */
 .screen.songs h1 i {
-  font-size: 100px;
+  display: block;
+  font-size: 24px;
+  text-transform: uppercase;
 }
-/* line 44, ../sass/screen.sass */
+/* line 52, ../sass/screen.sass */
+.screen.songs span.arrows {
+  display: block;
+  text-align: center;
+  font-size: 140px;
+  margin-bototm: 10%;
+}
+/* line 58, ../sass/screen.sass */
 .screen.songs ol li {
   text-align: center;
+  padding-left: 1%;
   width: 49%;
   height: 100%;
   float: left;
 }
-/* line 49, ../sass/screen.sass */
+/* line 65, ../sass/screen.sass */
 .screen.songs ol li:first-child {
-  margin-right: 2%;
+  padding-right: 1%;
+  padding-left: 0;
+  width: calc(49% - 3px);
+  border-right: 3px dashed white;
 }
-/* line 51, ../sass/screen.sass */
+/* line 70, ../sass/screen.sass */
 .screen.songs ol li h2 {
   margin-bottom: 20px;
 }
-/* line 54, ../sass/screen.sass */
+/* line 73, ../sass/screen.sass */
 .screen.photos .photo {
   position: absolute;
   top: 0;
@@ -136,9 +153,10 @@ h3 {
   right: 0;
   background-position: center center;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
-/* line 63, ../sass/screen.sass */
+/* line 83, ../sass/screen.sass */
 .dolphin {
   display: block;
   width: 368px;
@@ -148,7 +166,7 @@ h3 {
   right: 20px;
   top: 100%;
 }
-/* line 72, ../sass/screen.sass */
+/* line 92, ../sass/screen.sass */
 .dolphin.left {
   background: url(../img/dolphin-left.png);
   left: 0;

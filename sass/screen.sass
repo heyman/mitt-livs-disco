@@ -20,34 +20,53 @@ body
     height: 100%
     width: 100%
     padding-top: 5%
+    font-family: "Arial"
 
 h1
-    font-family: "HeadLineA"
-    font-size: 140px
+    font-family: "Arial"
+    font-size: 90px
     text-align: center
 h2
-    font-size: 66px
+    font-size: 50px
     font-weight: bold
 h3
-    font-size: 50px
+    font-size: 40px
 
 .screen
     display: none
-    padding-top: 40px
+    //padding-top: 40px
     
+    &.title
+        h1
+            font-size: 140px
+            position: absolute
+            left: 50%
+            top: 50%
+            transform: translate(-50%, -50%)
     &.songs
         h1
-            margin-bottom: 10%
             i
-                font-size: 100px
+                display: block
+                font-size: 24px
+                text-transform: uppercase
+        span.arrows
+            display: block
+            text-align: center
+            font-size: 140px
+            margin-bototm: 10%
         ol
             li
                 text-align: center
+                padding-left: 1%
                 width: 49%
                 height: 100%
+                apdding
                 float: left
                 &:first-child
-                    margin-right: 2%
+                    padding-right: 1%
+                    padding-left: 0
+                    width: calc(49% - 3px)
+                    border-right: 3px dashed #fff
                 h2
                     margin-bottom: 20px
     &.photos
@@ -59,6 +78,7 @@ h3
             right: 0
             background-position: center center
             background-size: contain
+            background-repeat: no-repeat
 
 .dolphin
     display: block
