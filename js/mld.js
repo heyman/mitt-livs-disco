@@ -10,6 +10,20 @@ MLD = {
     body: $("body"),
     photoElements: [],
     currentPhoto: -1,
+    shiftDown: false,
+    
+    photoBeatCount: 0,
+    photoBeatTime: 0,
+    photoBeatInterval: 0,
+    photoBeatIntervalToken: null,
+    photoBeatLastTime: null,
+    photoBeatRunning: false,
+    
+    html: $("html"),
+    body: $("body"),
+    colors: ["#f00", "#0f0", "#00f", "#ff0", "magenta"],
+    flashBackgrouondIntervalToken: null,
+    flashBackgroundRunning: false,
     
     init: function() {
         this.switchScreen(this.blackScreen);
@@ -24,8 +38,11 @@ MLD = {
         MLD.nextPhoto();
         
         $(document).on("keydown", function(event) {
-            console.log("event:", event);
+            console.log("key:", event.keyCode);
             switch (event.keyCode) {
+                case 16:  // shift key
+                    MLD.shiftDown = true;
+                    break;
                 case 49:
                     MLD.switchScreen(MLD.blackScreen);
                     break;
@@ -48,19 +65,44 @@ MLD = {
                         MLD.changeSong(1);
                     }
                     break;
-                case 32:
+                case 32: // Space key
                     if (MLD.currentScreen == MLD.photoScreen) {
                         MLD.nextPhoto();
+                        if (MLD.shiftDown) {
+                            if (MLD.photoBeatRunning)
+                                MLD.stopPhotoBeat();
+                            MLD.trackPhotoBeat();
+                        } else {
+                            MLD.stopPhotoBeat();
+                        }
                     }
                     break;
                 case 70: // F key
-                    MLD.flashBackground();
+                    if (MLD.shiftDown) {
+                        if (MLD.flashBackgroundRunning)
+                            MLD.stopFlashBackground();
+                        else
+                            MLD.startFlashBackground();
+                    } else {
+                        MLD.flashBackground();
+                    }
                     break;
                 case 188: // , key
                     MLD.dolphinLeft();
                     break;
                 case 190: // . key
                     MLD.dolphinRight();
+                    break;
+            }
+        });
+        $(document).on("keyup", function(event) {
+            switch (event.keyCode) {
+                case 16:  // shift key
+                    MLD.shiftDown = false;
+                    if (MLD.currentScreen == MLD.photoScreen) {
+                        if (!MLD.photoBeatRunning)
+                            MLD.startPhotoBeat();
+                    }
                     break;
             }
         });
@@ -91,6 +133,12 @@ MLD = {
         $(".songs .song1 h3").text(song1[1]);
         $(".songs .song2 h2").text(song2[0]);
         $(".songs .song2 h3").text(song2[1]);
+        
+        $(".songs li").css({height:""});
+        var songHeight = Math.max($(".songs li:first").height(), $(".songs li:last").height());
+        $(".songs li").css({height:songHeight});
+        
+        //console.log("height:", songHeight);
         this.currentSong = i;
     },
     
@@ -106,24 +154,81 @@ MLD = {
         this.photoElements[this.currentPhoto].show();
     },
     
+    trackPhotoBeat: function() {
+        if (this.photoBeatTime == 0) {
+            this.photoBeatTime = new Date().getTime();
+        } else {
+            var time = (new Date().getTime()) - this.photoBeatTime;
+            this.photoBeatInterval = Math.round(time/this.photoBeatCount)
+            console.log("interval:", this.photoBeatInterval);
+        }
+        this.photoBeatLastTime = new Date().getTime();
+        this.photoBeatCount++;
+    },
+    startPhotoBeat: function() {
+        console.log("starting photo beat");
+        if (this.photoBeatInterval == 0)
+            return
+        
+        // clear any previous beat interval
+        clearInterval(MLD.photoBeatIntervalToken);
+        
+        // calculate short delay to get the beat synced
+        var waitTime = this.photoBeatInterval - (((new Date().getTime()) - this.photoBeatLastTime) % this.photoBeatInterval);
+        this.photoBeatRunning = true;
+        setTimeout(function() {
+            MLD.photoBeatIntervalToken = setInterval(function() {
+                MLD.nextPhoto();
+            }, MLD.photoBeatInterval);
+        }, waitTime);
+    },
+    stopPhotoBeat: function() {
+        console.log("stop photo beat");
+        clearInterval(this.photoBeatIntervalToken);
+        this.photoBeatRunning = false;
+        this.photoBeatCount = 0;
+        this.photoBeatTime = 0;
+        this.photoBeatInterval = 0;
+        this.photoBeatLastTime = null;
+    },
+    
+    changeBackground: function() {
+        var i = Math.floor(Math.random() * this.colors.length);
+        this.html.css({"background-color": this.colors[i]});
+        this.body.css({"background-color": this.colors[i]});
+    },
     flashBackground: function() {
         var html = $("html");
         var body = $("body");
         var colors = ["#f00", "#0f0", "#00f", "#ff0", "magenta"];
         var count = 0;
         var changeColor = function() {
-            var i = Math.floor(Math.random() * colors.length);
-            html.css({"background-color": colors[i]});
-            body.css({"background-color": colors[i]});
+            MLD.changeBackground();
             count++;
             if (count < 30)
                 setTimeout(changeColor, 100);
             else {
-                body.css({"background-color": "#000"});
-                html.css({"background-color": "#000"});
+                MLD.body.css({"background-color": "#000"});
+                MLD.html.css({"background-color": "#000"});
             }
         }
         setTimeout(changeColor, 0);
+    },
+    startFlashBackground: function() {
+        if (this.flashBackgrouondIntervalToken)
+            clearInterval(this.flashBackgrouondIntervalToken);
+        this.flashBackgroundRunning = true;
+        this.flashBackgrouondIntervalToken = setInterval(function() {
+            MLD.changeBackground();
+        }, 100);
+    },
+    stopFlashBackground: function() {
+        if (this.flashBackgrouondIntervalToken) {
+            clearInterval(this.flashBackgrouondIntervalToken);
+            this.flashBackgroundRunning = false;
+            MLD.body.css({"background-color": "#000"});
+            MLD.html.css({"background-color": "#000"});
+        }
     },
     
     dolphinLeft: function() {
