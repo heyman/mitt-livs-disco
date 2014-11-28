@@ -1,7 +1,12 @@
 MLD.songs = [
-    ["Det var jag - Familjen", "Kunde vart jag - Alf"],
+    ["Funeral Face - Suburban Kids with biblical names", "Poker Face - Lady Gaga"],
+    ["Dancing on my own - Robyn", "Dancing with myself - Billy Idol"],
     ["Let's just fall in love - Marit Bergman", "You can't hurry love - The Supremes"],
-    ["Hej hopp - ojojoo", "kjsgksjg - ksgkskgksjg"],
+    ["The Sign - Ace of Base", "Sweat (A la la la la long) - Inner Circle"],
+    ["Det var jag - Familjen", "Kunde vart jag - Alf"],
+    ["Electric - Leila K", "Electric - Melody Club"],
+    ["Tapetklister - Jumper", "Lovefool - The Cardigans"],
+    ["Kom igen Lena - Håkan Hellström", "Underground - Broder Daniel"],
 ];
 
 MLD.photos = [
