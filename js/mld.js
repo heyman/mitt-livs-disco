@@ -3,6 +3,7 @@ MLD = {
     photos: [],
     currentScreen: null,
     currentSong: 0,
+    blackScreen: $(".screen.black"),
     titleScreen: $(".screen.title"),
     songScreen: $(".screen.songs"),
     photoScreen: $(".screen.photos"),
@@ -11,7 +12,7 @@ MLD = {
     currentPhoto: -1,
     
     init: function() {
-        this.switchScreen(this.titleScreen);
+        this.switchScreen(this.blackScreen);
         this.setSong(0);
         
         $.each(this.photos, function() {
@@ -26,12 +27,15 @@ MLD = {
             console.log("event:", event);
             switch (event.keyCode) {
                 case 49:
-                    MLD.switchScreen(MLD.titleScreen);
+                    MLD.switchScreen(MLD.blackScreen);
                     break;
                 case 50:
-                    MLD.switchScreen(MLD.photoScreen);
+                    MLD.switchScreen(MLD.titleScreen);
                     break;
                 case 51:
+                    MLD.switchScreen(MLD.photoScreen);
+                    break;
+                case 52:
                     MLD.switchScreen(MLD.songScreen);
                     break;
                 case 37:
